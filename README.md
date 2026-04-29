@@ -13,10 +13,11 @@ Languages:
 Software:
     Flask (potential to move to django in future)
     PostgreSQL
-    Docker / Podman for development
-    Ollama
+    Docker / Podman for development -> linux
+    Ollama -> linux
     Openai-agents
     pytest
+    SQLAlchemy
     MQTT for transmitting data between sensors and the server
 
 Workflow:
