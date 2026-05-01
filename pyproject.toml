@@ -1,0 +1,32 @@
+[project]
+name = "planteye"
+version = "1.0.0"
+requires-python = ">=3.11"
+description = "Plant health monitoring network with Flask"
+dependencies = [
+    "flask",
+    "sqlalchemy",
+    "flask-sqlalchemy",
+    "requests",
+    "openai",
+    "openai-agents",
+    "psycopg2-binary",
+    "flask-migrate",
+    "python-dotenv",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-flask",
+    "coverage"
+]
+
+[build-system]
+requires = ["flit-core<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]

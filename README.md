@@ -1,4 +1,5 @@
-# Plant Helper
+# Plant Helpe
+
 
 This is an app for collecting information about plants from the permapeople database, storing, categorizing, and using ai agents / programs to analyze the data.
 
@@ -17,6 +18,7 @@ Software:
     Ollama -> linux
     Openai-agents
     pytest
+    coverage
     SQLAlchemy
     MQTT for transmitting data between sensors and the server
 
@@ -26,6 +28,9 @@ Workflow:
     Agent determines plant needs -> Output AI summary to web page and value differences per plant
 
 Entities:
+    User:
+    user_id:int name:str password:hash
+
     Plant:
     plant_id:str type:str scientific_name:str name:str desc:text/string link:str slug:str updated:date created:date
     growth:str water_requirement:str light_requirement:str USDA_hardiness:str soil_type:str family:string
@@ -43,22 +48,27 @@ Entities:
     partial_shade = +50%
     full_shade = +25%
 
-Testing:
-    For now I am employing a simple testing strategy as this app is mainly for personal use, I may expand tests in the future
-
-    Sync:
-        Mock permapeople API responses assert correct rows upsert to Postgres
-        Assert no duplicates
-
-    Sensors:
-        POST a reading for a known plant, assert it's stored correctly
-        POST a reading for a fake plant, assert it fails gracefully
-
-    Comparison:
-        Assert comparison between nominal plant + poor plant = sub_nominal reading
-        Assert comparison between nominal plant + nominal plant = nominal reading
-        Assert if either reading missing = failed comparison 
-
-    Agent:
-        Assert agent creates correct response for given reading
+Behaviours:
     
+    NO ACCOUNT:
+        User navigates to index page -> page prompts for login
+        User registers account -> user info added to db
+
+    LOGGED IN:
+        User navigates to index page -> dashboard is displayed
+        User requests information refresh -> server queries plant DB and sensors
+        plant info retrieved -> stored in local DB
+        Agent queries info from local DB -> outputs analyses
+
+Tests:
+
+    Database:
+        Test tables, columns, indexes exist
+        Test insert into database
+        Test retrieve from database
+
+        Test invalid insert
+        Test invalid query
+
+
+
