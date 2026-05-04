@@ -17,7 +17,7 @@ services:
       COVERAGE_FILE: /app/logs/.coverage
     depends_on:
       - db_test
-    command: bash -c "coverage run --data-file=/app/logs/.coverage -m pytest -v > /app/logs/test_results.log;
+    command: bash -c "coverage run --data-file=/app/logs/.coverage -m pytest -v | tee /app/logs/test_results.log;
                       coverage report --data-file=/app/logs/.coverage > /app/logs/coverage_summary.txt &&
                       coverage html --data-file=/app/logs/.coverage -d /app/logs/htmlcov"
     volumes:

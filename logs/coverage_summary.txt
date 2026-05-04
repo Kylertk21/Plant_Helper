@@ -1,8 +1,11 @@
-Name                          Stmts   Miss Branch BrPart  Cover
----------------------------------------------------------------
-planteye/__init__.py             16      0      2      0   100%
-planteye/db.py                    4      0      0      0   100%
-planteye/models/__init__.py       1      0      0      0   100%
-planteye/models/user.py           7      0      0      0   100%
----------------------------------------------------------------
-TOTAL                            28      0      2      0   100%
+Name                              Stmts   Miss Branch BrPart  Cover
+-------------------------------------------------------------------
+planteye/__init__.py                 16      0      2      0   100%
+planteye/db.py                        6      0      0      0   100%
+planteye/models/__init__.py           4      0      0      0   100%
+planteye/models/ai_output.py         11      0      0      0   100%
+planteye/models/plant.py             21      0      0      0   100%
+planteye/models/plant_sensor.py      12      0      0      0   100%
+planteye/models/user.py               8      0      0      0   100%
+-------------------------------------------------------------------
+TOTAL                                78      0      2      0   100%

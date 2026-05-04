@@ -11,6 +11,18 @@ def test_is_postgres(app):
     assert 'postgresql' in app.config['SQLALCHEMY_DATABASE_URI']
 
 # Inspect for user in db table
-def test_user_in_schema(app):
+def test_user_schema(app):
     tables = inspect(db.engine).get_table_names()
     assert 'user' in tables
+
+def test_plant_schema(app):
+    tables = inspect(db.engine).get_table_names()
+    assert 'plant' in tables
+
+def test_plant_sensor_schema(app):
+    tables = inspect(db.engine).get_table_names()
+    assert 'plant_sensor' in tables
+
+def test_ai_output_schema(app):
+    tables = inspect(db.engine).get_table_names()
+    assert 'ai_output' in tables
