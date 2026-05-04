@@ -1,0 +1,119 @@
+time="2026-05-04T11:35:42-06:00" level=warning msg="Found orphan containers ([plant_eye-app-1 plant_eye-db-1]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+Attaching to db_test-1, test-1
+ Container plant_eye-db_test-1 Starting 
+ Container plant_eye-db_test-1 Started 
+ Container plant_eye-test-1 Starting 
+db_test-1  | 
+db_test-1  | PostgreSQL Database directory appears to contain a database; Skipping initialization
+db_test-1  | 
+db_test-1  | 2026-05-04 17:35:42.772 UTC [1] LOG:  starting PostgreSQL 16.13 (Debian 16.13-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+db_test-1  | 2026-05-04 17:35:42.772 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db_test-1  | 2026-05-04 17:35:42.772 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db_test-1  | 2026-05-04 17:35:42.775 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db_test-1  | 2026-05-04 17:35:42.778 UTC [29] LOG:  database system was shut down at 2026-05-04 17:35:22 UTC
+db_test-1  | 2026-05-04 17:35:42.782 UTC [1] LOG:  database system is ready to accept connections
+ Container plant_eye-test-1 Started 
+test-1     | ============================= test session starts ==============================
+test-1     | platform linux -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0
+test-1     | rootdir: /app
+test-1     | configfile: pyproject.toml
+test-1     | testpaths: tests
+test-1     | plugins: anyio-4.13.0, flask-1.3.0
+test-1     | collected 4 items
+test-1     | 
+test-1     | tests/test_factory.py .                                                  [ 25%]
+test-1     | tests/test_schema.py .E.EFE                                              [100%]
+test-1     | 
+test-1     | ==================================== ERRORS ====================================
+test-1     | _____________________ ERROR at teardown of test_connection _____________________
+test-1     | fixture function has more than one 'yield':
+test-1     | 
+test-1     |     @pytest.fixture
+test-1     |     def app():
+test-1     |     
+test-1     |         app = create_app({
+test-1     |             'TESTING': True,
+test-1     |             'SQLALCHEMY_DATABASE_URI': db_uri,
+test-1     |             'SQLALCHEMY_TRACK_MODIFICATIONS': False,
+test-1     |             })
+test-1     |     
+test-1     |         with app.app_context():
+test-1     |             _db.create_all()
+test-1     |             yield app
+test-1     |             _db.session.remove()
+test-1     |             _db.drop_all()
+test-1     |     
+test-1     |         yield app
+test-1     | /app/tests/conftest.py:14
+test-1     | ____________________ ERROR at teardown of test_is_postgres _____________________
+test-1     | fixture function has more than one 'yield':
+test-1     | 
+test-1     |     @pytest.fixture
+test-1     |     def app():
+test-1     |     
+test-1     |         app = create_app({
+test-1     |             'TESTING': True,
+test-1     |             'SQLALCHEMY_DATABASE_URI': db_uri,
+test-1     |             'SQLALCHEMY_TRACK_MODIFICATIONS': False,
+test-1     |             })
+test-1     |     
+test-1     |         with app.app_context():
+test-1     |             _db.create_all()
+test-1     |             yield app
+test-1     |             _db.session.remove()
+test-1     |             _db.drop_all()
+test-1     |     
+test-1     |         yield app
+test-1     | /app/tests/conftest.py:14
+test-1     | ___________________ ERROR at teardown of test_user_in_schema ___________________
+test-1     | fixture function has more than one 'yield':
+test-1     | 
+test-1     |     @pytest.fixture
+test-1     |     def app():
+test-1     |     
+test-1     |         app = create_app({
+test-1     |             'TESTING': True,
+test-1     |             'SQLALCHEMY_DATABASE_URI': db_uri,
+test-1     |             'SQLALCHEMY_TRACK_MODIFICATIONS': False,
+test-1     |             })
+test-1     |     
+test-1     |         with app.app_context():
+test-1     |             _db.create_all()
+test-1     |             yield app
+test-1     |             _db.session.remove()
+test-1     |             _db.drop_all()
+test-1     |     
+test-1     |         yield app
+test-1     | /app/tests/conftest.py:14
+test-1     | =================================== FAILURES ===================================
+test-1     | _____________________________ test_user_in_schema ______________________________
+test-1     | 
+test-1     | app = <Flask 'planteye'>
+test-1     | 
+test-1     |     def test_user_in_schema(app):
+test-1     |         tables = inspect(db.engine).get_table_names()
+test-1     | >       assert 'user' in tables
+test-1     | E       AssertionError: assert 'user' in []
+test-1     | 
+test-1     | tests/test_schema.py:16: AssertionError
+test-1     | =========================== short test summary info ============================
+test-1     | FAILED tests/test_schema.py::test_user_in_schema - AssertionError: assert 'us...
+test-1     | ERROR tests/test_schema.py::test_connection - Failed: fixture function has mo...
+test-1     | ERROR tests/test_schema.py::test_is_postgres - Failed: fixture function has m...
+test-1     | ERROR tests/test_schema.py::test_user_in_schema - Failed: fixture function ha...
+test-1     | ==================== 1 failed, 3 passed, 3 errors in 0.16s =====================
+[Ktest-1 exited with code 1
+ Compose Stopping Aborting on container exit...
+ Container plant_eye-test-1 Stopping 
+ Container plant_eye-test-1 Stopped 
+ Container plant_eye-db_test-1 Stopping 
+db_test-1  | 2026-05-04 17:35:44.232 UTC [1] LOG:  received fast shutdown request
+db_test-1  | 2026-05-04 17:35:44.233 UTC [1] LOG:  aborting any active transactions
+db_test-1  | 2026-05-04 17:35:44.235 UTC [1] LOG:  background worker "logical replication launcher" (PID 32) exited with exit code 1
+db_test-1  | 2026-05-04 17:35:44.235 UTC [27] LOG:  shutting down
+db_test-1  | 2026-05-04 17:35:44.237 UTC [27] LOG:  checkpoint starting: shutdown immediate
+db_test-1  | 2026-05-04 17:35:44.241 UTC [27] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.002 s, total=0.007 s; sync files=2, longest=0.002 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/191FBB0, redo lsn=0/191FBB0
+db_test-1  | 2026-05-04 17:35:44.245 UTC [1] LOG:  database system is shut down
+ Container plant_eye-db_test-1 Stopped 
+[Kdb_test-1 exited with code 0
+

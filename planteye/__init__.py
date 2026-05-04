@@ -1,6 +1,9 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+migrate = Migrate()
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -17,7 +20,10 @@ def create_app(test_config=None):
 
     os.makedirs(app.instance_path, exist_ok=True)
 
-    from . import db
+    from .db import db
     db.init_app(app)
+    migrate.init_app(app,db)
 
     # TODO auth, dashboard blueprints
+
+    return app

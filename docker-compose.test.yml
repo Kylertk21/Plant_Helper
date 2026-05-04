@@ -1,0 +1,24 @@
+services:
+  db_test:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: planteye_test
+      POSTGRES_USER: kyler
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5433:5432"
+
+  test:
+    build: .
+    environment:
+      DATABASE_URL: postgresql://kyler:password123@db_test/planteye_test
+      SECRET_KEY: dev
+      TESTING: "true"
+      COVERAGE_FILE: /app/logs/.coverage
+    depends_on:
+      - db_test
+    command: bash -c "coverage run --data-file=/app/logs/.coverage -m pytest -v > /app/logs/test_results.log;
+                      coverage report --data-file=/app/logs/.coverage > /app/logs/coverage_summary.txt &&
+                      coverage html --data-file=/app/logs/.coverage -d /app/logs/htmlcov"
+    volumes:
+      - ./logs:/app/logs

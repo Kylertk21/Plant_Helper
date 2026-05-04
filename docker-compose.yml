@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: planteye
+      POSTGRES_USER: kyler
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: postgresql://kyler:password123@db/planteye
+      SECRET_KEY: dev
+    depends_on:
+      - db
+    command: flask --app planteye run --host=0.0.0.0 --debug
+
+volumes:
+  postgres_data:
+
+

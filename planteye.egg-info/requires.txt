@@ -1,0 +1,14 @@
+flask
+sqlalchemy
+flask-sqlalchemy
+requests
+openai
+openai-agents
+psycopg2-binary
+flask-migrate
+python-dotenv
+
+[dev]
+pytest
+pytest-flask
+coverage
