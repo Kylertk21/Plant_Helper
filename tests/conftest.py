@@ -41,14 +41,34 @@ def runner(app):
     return app.test_cli_runner()
 
 @pytest.fixture
-def user(app):
+def user_data(app):
     from planteye.models.user import User
     user = User(email="test@example.com", password="hashed_pw")
     _db.session.add(user)
     _db.session.commit()
 
+@pytest.fixture
+def plant_data(app):
+    from planteye.models.plant import Plant
+    plant = Plant(
+            type="Plant",
+            scientific_name="Morus alba",
+            name="White mulberry",
+            desc="Young leaves are edible.",
+            link="/plants/morus-alba-white-mulberry",
+            slug="morus-alba-white-mulberry",
+            updated="2022-07-30T08:17:26.658Z",
+            created="2020-08-11T16:09:47.485Z",
+            growth="Medium",
+            water="Moist",
+            light="Full sun, partial sun/shade",
+            hardiness="3-9",
+            soil="Light (sandy), medium, heavy (clay)",
+            family="Moraceae"
+            )
 
 
+    #TODO: finish plant fixture
 
 
 
