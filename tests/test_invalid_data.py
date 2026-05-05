@@ -50,7 +50,14 @@ def test_plant_sensor_requires_assoc(app):
         _db.session.commit()
     _db.session.rollback()
 
-def test_ai_output_requires_name(app):
-    from planteye.models.ai_output
+def test_ai_output_requires_assoc(app):
+    from planteye.models.ai_output import Ai_Output
+    ai_output = Ai_Output(
+            created="2022-07-30T08:17:26.658Z",
+            severity="Medium",
+            message="Plant needs a bit more water and light, ph good"
             )
-    
+    _db.session.add(ai_output)
+    with pytest.raises(IntegrityError):
+        _db.session.commit()
+    _db.session.rollback()
