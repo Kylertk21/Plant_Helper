@@ -66,20 +66,40 @@ def plant_data(app):
             soil="Light (sandy), medium, heavy (clay)",
             family="Moraceae"
             )
+    _db.session.add(plant)
+    _db.session.commit()
+
+@pytest.fixture
+def plant_sensor_data(app, plant_data):
+    from planteye.models.plant_sensor import Plant_Sensor
+    from planteye.models.plant import Plant
+
+    plant = Plant.query.first()
+
+    plant_sensor = Plant_Sensor(
+            plant_id=plant.id,
+            name="Mulberry Sensor",
+            light_reading=45000.0,
+            water_reading=0.6,
+            soil=7.0
+            )
+    _db.session.add(plant_sensor)
+    _db.session.commit()
+
+@pytest.fixture
+def ai_output(app, plant_data):
+    from planteye.models.ai_output import Ai_Output
+    from planteye.models.plant import Plant
+
+    plant = Plant.query.first()
+
+    ai_output = Ai_Output(
+            plant_id=plant.id,
+            created="2022-07-30T08:17:26.658Z",
+            severity="Medium",
+            message="Plant needs a bit more water and light, ph good"
+            )
+    _db.session.add(ai_output)
+    _db.session.commit()
 
 
-    #TODO: finish plant fixture
-
-
-
-
-
-
-
-
-
-
-
-
-# TODO: create test DB
-# TODO: write tests

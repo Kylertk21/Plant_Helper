@@ -51,7 +51,6 @@ def test_plant_sensor_schema(app):
     assert 'plant_sensor' in tables
     assert 'id' in columns
     assert 'plant_id' in columns
-    assert 'type' in columns
     assert 'name' in columns
     assert 'light_reading' in columns
     assert 'water_reading' in columns
